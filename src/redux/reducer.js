@@ -1,6 +1,7 @@
 const initialState = {
-    user: {},  
-    //contains the values: username: '', profilePic: '', userId: a number from the req.session.user sent from server
+   username: '',
+   password: '',
+   profilePic: '',
     isLoggedIn: false
 }
 

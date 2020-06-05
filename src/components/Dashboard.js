@@ -1,32 +1,39 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-// import {getUser} from '../redux/reducer';
+import { connect } from 'react-redux';
+// import axios from 'axios';
+import { logoutUser } from '../redux/reducer';
 // import {getPosts} from '../redux/reducer';
+// import Nav from './Nav';
 
 
 class Dashboard extends Component {
     constructor() {
-        super ()
+        super()
 
-        this.state= {
-            posts: [], 
+        this.state = {
+            posts: [],
             search: '',
             userposts: true
         }
+
+        // this.logout = this.logout.bind(this)
     }
-  
-    // componentDidMount() {
-    //     this.props.getUser()
-    //     .catch(() => {
-    //         this.props.history.push('/')
-    //     })
-        //also need to call the getPosts function? to display all posts like in shelfie getInventory
-    // }  
+
+    //reset search
 
     render() {
-        return <div>Dashboard Component</div>
+        return (
+            <div>
+                <h6>Dashboard Component</h6>
+
+                <div className="all-posts">
+
+                </div>
+            </div>
+        )
     }
 }
 
 const mapStateToProps = reduxState => reduxState
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = { logoutUser }
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

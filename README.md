@@ -1,6 +1,6 @@
 # MVP
 - register new user
-- login functionality
+- login/logout functionality
 - view profile (picture and username when logged in)
 
 

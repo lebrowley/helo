@@ -3,13 +3,15 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../redux/reducer';
+import '../styling/Auth.css'
 
 class Auth extends Component {
     constructor() {
         super()
 
         this.state = {
-            user: {}
+            username: '',
+            password: ''
         }
 
     }
@@ -29,7 +31,7 @@ class Auth extends Component {
                 this.props.loginUser(res.data)   //basically setting state, but the reduxState
                 this.props.history.push('/dashboard') //because of this maybe don't need links in buttons below?? 
             })
-            .catch(err => alert('Could not register')) //this alert is firing even though the data is saved to db and the page is redirected to dashboard 
+            .catch(err => alert('Could not register'))
     }
 
     login = (e) => {
@@ -39,7 +41,7 @@ class Auth extends Component {
         axios.post('/api/auth/login', { username, password })
             .then(res => {
                 this.props.loginUser(res.data)
-                this.props.history.push('/dashboard')
+                this.props.history.push('/dashboard') //how to make it so the session doesn't end when the refresh button is clicked? 
             })
             .catch(err => alert('Could not login'))
     }
@@ -48,27 +50,30 @@ class Auth extends Component {
         return (
             <div className='background'>
                 <div className='auth-box'>
-                    <img /> {/*wink face icon*/}
+                    <img
+                        src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS838K5RwTbsF3wQSf9GArGQWHG9_j372xsMkAM9VnM8IX8aAEq&usqp=CAU' /> {/*wink face icon*/}
                     <h1>Helo</h1>
 
                     <form className='auth-form'>
                         <input
                             type='text'
                             name='username'
-                            label='username'
+                            placeholder='username'
                             onChange={e => this.handleChange(e)} />
                         <input
-                            type='text'
+                            type='password'
                             name='password'
-                            label='password'
+                            placeholder='password'
                             onChange={e => this.handleChange(e)} />
 
-                        <button className='auth-buttons' type='submit' onClick={this.register}><Link to='/dashboard'>Register</Link></button>
+                        <div className='form-buttons'>
+                            <button type='submit' onClick={this.register}><Link to='/dashboard'>Register</Link></button>
+
+                            <button type='submit' onClick={this.login}><Link to='/dashboard'>Login</Link></button>
+                        </div>
+
                     </form>
 
-                    <button className='auth-buttons' onClick={this.login}><Link to='/dashboard'>Login</Link></button>
-
-                    
                 </div>
             </div>
         )
@@ -77,5 +82,5 @@ class Auth extends Component {
 }
 
 const mapStateToProps = reduxState => reduxState
-const mapDispatchToProps = {loginUser}
+const mapDispatchToProps = { loginUser }
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

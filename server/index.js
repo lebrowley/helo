@@ -19,11 +19,9 @@ app.use(session({
 //auth endpoints
 app.post('/api/auth/register', authCtrl.register ) 
 app.post('/api/auth/login', authCtrl.login) 
-app.delete('/auth/logout') 
+app.delete('/api/auth/logout', authCtrl.logout) 
 
-// app.get('/auth/user')   ??????  
-
-
+ 
 //post endpoints
 // app.get('/api/posts/:userid') (send: [{title: '', author: '', authorPic: ''}])
 // app.get('/api/post/:postid) (send: {title: '', img: '', content: '', author: '', authorPic:''})

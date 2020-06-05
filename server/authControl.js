@@ -1,14 +1,13 @@
 const bcrypt = require('bcrypt')
 
 module.exports = {
-    // register  (req.body: username: '', password: '') (send: {username: '', profilePic: '', userId: #})
     register: async (req, res) => {
         const dbInstance = req.app.get('db')
-        const {username, password} = req.body
+        const { username, password } = req.body
 
         const existingUser = await dbInstance.check_user(username)
 
-        if(existingUser[0]) {
+        if (existingUser[0]) {
             return res.status(409).send('User already exists')
         }
 
@@ -24,18 +23,18 @@ module.exports = {
         }
         res.status(200).send(req.session.user)
     },
-    // login  (req.body: username: '', password: '') (send: {username: '', profilePic: '', userId: #})
+
     login: async (req, res) => {
         const dbInstance = req.app.get('db')
-        const {username, password} = req.body
+        const { username, password } = req.body
 
         const user = await dbInstance.check_user(username)
 
-        if(!user[0]) {
+        if (!user[0]) {
             return res.status(404).send('User does not exist')
         } else {
             const authenticated = bcrypt.compareSync(password, user[0].password)
-            if(authenticated) {
+            if (authenticated) {
                 req.session.user = {
                     username: user[0].username,
                     profilePic: user[0].profile_pic,
@@ -46,7 +45,10 @@ module.exports = {
                 res.status(403).send('Incorrect email or password')
             }
         }
+    },
+
+    logout: async (req, res) => {
+        req.session.destroy()
+        res.sendStatus(200)
     }
-    // logout  (destroy session)?? 
-    // - or does this need to be a post request since we might not be using express-session?? 
 }

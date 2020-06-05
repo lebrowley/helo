@@ -1,0 +1,29 @@
+.sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1; 
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.profile-pic {
+    height: 100px;
+    width: 100px;
+}
+
+.nav-links button, h2 {
+    padding: 10px 8px 10px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+.nav-links button {
+    margin-top: 25px;
+    width: 110px;
+}
