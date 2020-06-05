@@ -12,6 +12,7 @@
 - click on any of the posts in the feed to navigate to the detailed view of that post
 - navigate to the new post form
 - enter values for a new post, including title, image URL and content
+- reset forgotten password
  
 ## Database
 **dependencies**
@@ -39,6 +40,12 @@ CREATE TABLE posts (
 );
 ```
 **SQL Queries**
+- check_user
+- register_user
+
+**ice**
+- get_posts
+- create_post
 
 
 ## Server
@@ -62,6 +69,7 @@ CREATE TABLE posts (
         - or does this need to be a post request since we might not be using express-session?? 
     - app.get('/auth/user')??  
 
+**ice**
 - post: 
     - app.get('/api/posts/:userid') (send: [{title: '', author: '', authorPic: ''}])
     - app.get('/api/post/:postid) (send: {title: '', img: '', content: '', author: '', authorPic:''})
@@ -77,10 +85,11 @@ CREATE TABLE posts (
 
 **routes**
 - landing view (/)  (where user can login or register)
-- register view (/register) (where user can register and be redirected to login)
-- profile view (/profile)   (home where user can see list of their posts)  (Dashboard.js??)
-- post view (/post) (where user can see one individual post) (Post.js??)
-- new post view (/newpost) (where user can make a new post) (Form.js??)
+- dashboard (/dashboard)   (home where user can see list of their posts)  (Dashboard.js; link: Home)
+- Form or new post view (/form) (where user can make a new post) (Form.js; links on buttons: Home)
+
+**ice**
+- post view (/post) (where user can see one individual post) (Post.js??) (rendered in Dashboard?? link: Home)
 
 **file structure**
 - src/
@@ -94,7 +103,7 @@ CREATE TABLE posts (
         - store
         - reducer
     - components/
-        - Nav.js / .css
+        - Nav.js / .css (side nav bar with Home(Dashboard) and Form)
         - Auth.js / .css
         - Dashboard.js / .css
         - Post.js / .css
