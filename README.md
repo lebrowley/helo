@@ -1,68 +1,102 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# MVP
+- register new user
+- login functionality
+- view profile (picture and username when logged in)
 
-## Available Scripts
 
-In the project directory, you can run:
+**icebox- extras** 
+- view all posts
+- remove my own posts from the feed
+- search through the posts by title
+- reset the search to view all the posts again
+- click on any of the posts in the feed to navigate to the detailed view of that post
+- navigate to the new post form
+- enter values for a new post, including title, image URL and content
+ 
+## Database
+**dependencies**
+- massive
+- dotenv
+- bcrypt
 
-### `npm start`
+User 
+```SQL
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(20),
+    password VARCHAR(20),  --this will be the hash password
+    profile_pic TEXT
+);
+```
+Post
+```SQL
+CREATE TABLE posts (
+    post_id SERIAL PRIMARY KEY,
+    title VARCHAR(45),
+    img TEXT,
+    content TEXT, 
+    author_id INT REFERENCES users(user_id)
+);
+```
+**SQL Queries**
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Server
+**dependencies**
+- express
+- express-session??
 
-### `npm test`
+**controllers**
+- auth controller
+    - register
+    - login
+    - logout
+    - getUser
+- post controller
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**endpoints**
+- auth:
+    - app.post('/api/auth/register') (req.body: username: '', password: '') (send: {username: '', profilePic: '', userId: #})
+    - app.post('/api/auth/login') (req.body: username: '', password: '') (send: {username: '', profilePic: '', userId: #})
+    - app.delete('/auth/logout')  (destroy session)?? 
+        - or does this need to be a post request since we might not be using express-session?? 
+    - app.get('/auth/user')??  
 
-### `npm run build`
+- post: 
+    - app.get('/api/posts/:userid') (send: [{title: '', author: '', authorPic: ''}])
+    - app.get('/api/post/:postid) (send: {title: '', img: '', content: '', author: '', authorPic:''})
+    - app.post('/api/post/:userid) (send: status 200)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Client
+**dependencies**
+- axios
+- react-router-dom
+- react-redux
+- redux
+- redux-promise-middleware??
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+**routes**
+- landing view (/)  (where user can login or register)
+- register view (/register) (where user can register and be redirected to login)
+- profile view (/profile)   (home where user can see list of their posts)  (Dashboard.js??)
+- post view (/post) (where user can see one individual post) (Post.js??)
+- new post view (/newpost) (where user can make a new post) (Form.js??)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+**file structure**
+- src/
+    - App.js
+    - App.css
+    - index.js
+    - reset.css (add this and all below)
+    - .env (put in .gitignore)
+    - routes.js
+    - redux/ 
+        - store
+        - reducer
+    - components/
+        - Nav.js / .css
+        - Auth.js / .css
+        - Dashboard.js / .css
+        - Post.js / .css
+        - Form.js /.css
+        
