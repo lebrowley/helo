@@ -11,7 +11,7 @@ app.use(express.json())
 app.use(session({
     resave: false, 
     saveUninitialized: true,
-    cookie: {maxAge: 1000 * 60 * 60 * 24}, //one day
+    cookie: {maxAge: 1000 * 60 * 60 * 24}, 
     secret: SESSION_SECRET
 }))
 
@@ -20,6 +20,7 @@ app.use(session({
 app.post('/api/auth/register', authCtrl.register ) 
 app.post('/api/auth/login', authCtrl.login) 
 app.delete('/api/auth/logout', authCtrl.logout) 
+app.get('/api/auth/user', authCtrl.getUser)
 
  
 //post endpoints

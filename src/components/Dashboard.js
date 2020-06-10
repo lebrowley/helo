@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import axios from 'axios';
-import { logoutUser } from '../redux/reducer';
+import { getUser } from '../redux/reducer';
 // import {getPosts} from '../redux/reducer';
 // import Nav from './Nav';
 
@@ -15,9 +15,11 @@ class Dashboard extends Component {
             search: '',
             userposts: true
         }
-
-        // this.logout = this.logout.bind(this)
     }
+    
+   componentDidMount() {
+       this.props.getUser()
+   }
 
     //reset search
 
@@ -35,5 +37,5 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = reduxState => reduxState
-const mapDispatchToProps = { logoutUser }
+const mapDispatchToProps = { getUser }
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

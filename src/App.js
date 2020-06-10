@@ -1,7 +1,6 @@
 import React from 'react';
 import routes from './routes';
-import axios from 'axios';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Nav from './components/Nav';
 import './App.css';
@@ -9,7 +8,7 @@ import './App.css';
 function App(props) {
   return (
     <div className="App">
-      {props.isLoggedIn ? <Nav/> : null }
+      {props.isLoggedIn ? <Nav /> : null}
       {routes}
     </div>
   );

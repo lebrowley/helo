@@ -3,17 +3,18 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import {logoutUser} from '../redux/reducer';
 import { Link } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import '../styling/Nav.css';
 
 function Nav(props) {
-    console.log(`here are nav props ${props}`)
+    console.log('nav props', props)
     const logout = () => {
         axios.delete('/api/auth/logout')
                 .then(() => {
-                    props.logoutUser()  //on logout button click, reduxState is changing (nav bar disappears)
-                    props.history.push('/') //but something is going wrong here because the .catch is firing and it is not redirecting to Auth view
+                    props.logoutUser()  
+                    props.history.push('/') 
                 }) 
-                .catch(err => console.log('could not logout'))
+                .catch(err => console.log(err))
       }
     return (
         <div className="sidenav">
@@ -28,9 +29,10 @@ function Nav(props) {
             </div>
 
             <div className='nav-links'>
-                <button><Link to='/dashboard'>Home</Link></button>
-                <button><Link to='/form'>Post</Link></button>
-                <button onClick={() => logout()}>Logout</button> {/*from App*/}
+                <Link to='/dashboard'><button>Home</button></Link>
+                <Link to='/form'><button>Post</button></Link>
+
+                <button onClick={() => logout()}>Logout</button> 
             </div>
 
         </div>
@@ -39,4 +41,4 @@ function Nav(props) {
 
 const mapStateToProps = reduxState => reduxState
 const mapDispatchToProps = {logoutUser}
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Nav));

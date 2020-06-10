@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../redux/reducer';
-import '../styling/Auth.css'
+
 
 class Auth extends Component {
     constructor() {
@@ -29,7 +28,7 @@ class Auth extends Component {
         axios.post('/api/auth/register', { username, password })
             .then(res => {
                 this.props.loginUser(res.data)   //basically setting state, but the reduxState
-                this.props.history.push('/dashboard') //because of this maybe don't need links in buttons below?? 
+                this.props.history.push('/dashboard') 
             })
             .catch(err => alert('Could not register'))
     }
@@ -41,17 +40,18 @@ class Auth extends Component {
         axios.post('/api/auth/login', { username, password })
             .then(res => {
                 this.props.loginUser(res.data)
-                this.props.history.push('/dashboard') //how to make it so the session doesn't end when the refresh button is clicked? 
+                this.props.history.push('/dashboard') 
             })
             .catch(err => alert('Could not login'))
     }
 
     render() {
         return (
-            <div className='background'>
                 <div className='auth-box'>
                     <img
-                        src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS838K5RwTbsF3wQSf9GArGQWHG9_j372xsMkAM9VnM8IX8aAEq&usqp=CAU' /> {/*wink face icon*/}
+                        src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS838K5RwTbsF3wQSf9GArGQWHG9_j372xsMkAM9VnM8IX8aAEq&usqp=CAU'
+                        alt='helo-icon' /> 
+                    
                     <h1>Helo</h1>
 
                     <form className='auth-form'>
@@ -67,15 +67,14 @@ class Auth extends Component {
                             onChange={e => this.handleChange(e)} />
 
                         <div className='form-buttons'>
-                            <button type='submit' onClick={this.register}><Link to='/dashboard'>Register</Link></button>
+                            <button type='submit' onClick={this.register}>Register</button>
 
-                            <button type='submit' onClick={this.login}><Link to='/dashboard'>Login</Link></button>
+                            <button type='submit' onClick={this.login}>Login</button>
                         </div>
 
                     </form>
 
                 </div>
-            </div>
         )
 
     }
