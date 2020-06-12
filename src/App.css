@@ -166,6 +166,7 @@ h1 {
   font-size: 18px;
   font-weight: 700;
   text-align: left;
+  padding-top: 0;
 }
 
 .form-title {
